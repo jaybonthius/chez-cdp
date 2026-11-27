@@ -414,10 +414,11 @@
                   (vector-ref strings (vector-ref names i))
                   (text-at (vector-ref node-values i))
                   (let ([parent (vector-ref parents i)]) (and (fx>= parent 0) parent))
+                  ;; Chromium gives an empty value as no string at all.
                   (let loop ([pairs (vector->list (vector-ref attributes i))])
                     (if (null? pairs)
                         '()
-                        (cons (cons (vector-ref strings (car pairs)) (vector-ref strings (cadr pairs)))
+                        (cons (cons (vector-ref strings (car pairs)) (or (text-at (cadr pairs)) ""))
                               (loop (cddr pairs)))))
                   (and k (let ([b (vector-ref bounds k)])
                            (make-rectangle (vector-ref b 0) (vector-ref b 1) (vector-ref b 2)

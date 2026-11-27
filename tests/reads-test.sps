@@ -74,6 +74,11 @@
         (check-equal? #f (snapshot-node-bounds gone))
         (check-equal? '() (snapshot-node-styles gone)))))
 
+  (test "an attribute with an empty value is in a snapshot with the empty string"
+    (let ([box (find (lambda (n) (equal? (assoc "id" (snapshot-node-attributes n)) '("id" . "box")))
+                 (vector->list (page-snapshot p '())))])
+      (check-equal? '(("id" . "box") ("data-empty" . "")) (snapshot-node-attributes box))))
+
   (test "a screenshot is a PNG of the viewport, or of a clip"
     (let ([whole (page-screenshot p)] [clip (page-screenshot p (make-rectangle 20 30 100 50))])
       (check-equal? png-signature (bytevector-prefix whole 8))
