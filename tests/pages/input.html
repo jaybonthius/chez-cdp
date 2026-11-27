@@ -1,0 +1,32 @@
+<!doctype html>
+<title>input</title>
+<style>
+  body { margin: 0; }
+  #field { position: absolute; left: 0; top: 0; width: 300px; }
+  #button { position: absolute; left: 0; top: 40px; width: 100px; height: 30px; }
+  #hovered { position: absolute; left: 0; top: 80px; width: 100px; height: 30px; color: rgb(0, 0, 0); }
+  #hovered:hover { color: rgb(255, 0, 0); }
+  #covered { position: absolute; left: 200px; top: 40px; width: 100px; height: 30px; }
+  #cover { position: absolute; left: 190px; top: 30px; width: 120px; height: 50px; background: white; }
+  #pad { position: absolute; left: 0; top: 200px; width: 300px; height: 200px; }
+  #scroller { position: absolute; left: 400px; top: 0; width: 200px; height: 100px; overflow: auto; }
+</style>
+<input id="field">
+<button id="button">press</button>
+<div id="hovered">hover</div>
+<button id="covered">covered</button>
+<div id="cover"></div>
+<div id="pad"></div>
+<div id="scroller"><div style="height: 2000px">tall</div></div>
+<script>
+  window.keys = [];
+  window.clicks = 0;
+  window.coveredClicks = 0;
+  window.drag = [];
+  addEventListener("keydown", e => keys.push([e.key, e.code, e.altKey, e.ctrlKey, e.metaKey, e.shiftKey]));
+  document.getElementById("button").addEventListener("click", () => clicks++);
+  document.getElementById("covered").addEventListener("click", () => coveredClicks++);
+  const pad = document.getElementById("pad");
+  for (const type of ["mousedown", "mousemove", "mouseup"])
+    pad.addEventListener(type, e => drag.push([type, e.clientX, e.clientY, e.buttons]));
+</script>
