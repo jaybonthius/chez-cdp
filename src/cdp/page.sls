@@ -1,11 +1,9 @@
 (library (cdp page)
   (export
-    ;; Pages
     page-options page-options? color-scheme open-page page? page-browser page-session
     page-close! page-navigate!
     &navigation-error navigation-error? navigation-error-url
 
-    ;; Elements and reads
     page-query element? element-page element-selector element-index element-backend-node-id
     element-text element-attribute element-style element-box
     &element-not-found element-not-found? element-not-found-selector element-not-found-index
@@ -16,7 +14,6 @@
     page-screenshot
     make-rectangle rectangle? rectangle-x rectangle-y rectangle-width rectangle-height
 
-    ;; Input
     modifiers page-press! page-type!
     make-point point? point-x point-y element-click! element-hover! page-wheel! page-drag!)
   (import (chezscheme) (cdp))

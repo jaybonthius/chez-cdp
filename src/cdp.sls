@@ -1,18 +1,14 @@
 (library (cdp)
   (export
-    ;; Browsers
     browser-options browser-options? launch-browser browser? browser-close!
     call-with-browser with-browser browser-root-session browser-timeout browser-process
     browser-attach-target
 
-    ;; Sessions and commands
     session? session-browser session-id cdp-call
 
-    ;; Events
     with-events call-with-events events? events-wait event? event-method event-params
     event-session
 
-    ;; Conditions
     &cdp-error cdp-error? cdp-error-code cdp-error-method
     &cdp-timeout make-cdp-timeout cdp-timeout? cdp-timeout-awaited cdp-timeout-last
     &browser-closed browser-closed? browser-closed-status
