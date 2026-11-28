@@ -59,6 +59,10 @@
     (element-click! (car (page-query p "#covered")))
     (check-equal? 1 (evaluate p "coveredClicks")))
 
+  (test "element-click! clicks an element whose centre its own ::before draws over"
+    (element-click! (car (page-query p "#drawn")))
+    (check-equal? 1 (evaluate p "drawnClicks")))
+
   (test "element-click! gives up when something keeps covering the element"
     (evaluate p "document.body.insertAdjacentHTML('beforeend', '<div id=\"cover\"></div>')")
     (guard (e [(cdp-timeout? e) (check-equal? "another element covers it" (cdp-timeout-last e))])

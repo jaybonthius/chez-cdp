@@ -266,6 +266,8 @@
 
   (define (children node) (vector->list (or (field node "children") '#())))
 
+  (define (pseudo-elements node) (vector->list (or (field node "pseudoElements") '#())))
+
   (define (element-text e)
     (check-element 'element-text e)
     (with-node 'element-text e
@@ -595,11 +597,13 @@
         ("button" . ,button)
         ("buttons" . ,buttons) ("clickCount" . 1))))
 
+  ;; A pointer over content an element's ::before or ::after draws hits
+  ;; that pseudo-element, which is the element's own drawing.
   (define (subtree-ids e id)
     (let walk ([node (describe e id -1)] [acc '()])
       (fold-left (lambda (acc child) (walk child acc))
         (cons (field node "backendNodeId") acc)
-        (children node))))
+        (append (children node) (pseudo-elements node)))))
 
   ;; The element's centre once it is in view and a pointer there would hit
   ;; it or something inside it, rather than whatever covers it; tried
